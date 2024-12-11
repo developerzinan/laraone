@@ -1,0 +1,19 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "abc1f240cbfd1e5db3e9183853fc5e1a"
+application_url = "https://aphid-aware-stallion.ngrok-free.app/"
+embedded = true
+name = "Laraone"
+handle = "laraone"
+
+[webhooks]
+api_version = "2024-10"
+
+[auth]
+redirect_urls = [ "https://aphid-aware-stallion.ngrok-free.app/authenticate" ]
+
+[pos]
+embedded = false
+
+[build]
+dev_store_url = "zinannadeem.myshopify.com"

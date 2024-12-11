@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => 'https://dear-workable-earwig.ngrok-free.app/', //env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------

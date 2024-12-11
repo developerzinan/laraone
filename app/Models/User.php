@@ -11,7 +11,6 @@ use Osiset\ShopifyApp\Traits\ShopModel;
 
 class User extends Authenticatable implements IShopModel
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, ShopModel;
 
     /**
@@ -44,7 +43,12 @@ class User extends Authenticatable implements IShopModel
     {
         return [
             'email_verified_at' => 'datetime',
-            // 'password' => 'hashed',
+            //'password' => 'hashed',
         ];
+    }
+
+    public function getUpperNameAttribute()
+    {
+        return strtoupper($this->name);
     }
 }

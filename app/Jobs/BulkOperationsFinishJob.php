@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Osiset\ShopifyApp\Objects\Values\ShopDomain;
 use stdClass;
 
-class ProductsUpdateJob implements ShouldQueue
+class BulkOperationsFinishJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -49,10 +49,6 @@ class ProductsUpdateJob implements ShouldQueue
     {
         // Convert domain
         $this->shopDomain = ShopDomain::fromNative($this->shopDomain);
-
-        logger()->info('Products update payload', (array) $this->data);
-
-        logger()->info('Products title', [$this->data->title]);
 
         // Do what you wish with the data
         // Access domain name as $this->shopDomain->toNative()

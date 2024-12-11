@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'manual_migrations' => (bool) env('SHOPIFY_MANUAL_MIGRATIONS', false),
+    'manual_migrations' => (bool) env('SHOPIFY_MANUAL_MIGRATIONS', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,6 +37,7 @@ return [
     */
 
     'domain' => env('SHOPIFY_DOMAIN'),
+
     /*
     |--------------------------------------------------------------------------
     | Manual routes
@@ -139,6 +140,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | AppBridge Mode
+    |--------------------------------------------------------------------------
+    |
+    | AppBridge (embedded apps) are enabled by default. Set to false to use legacy
+    | mode and host the app inside your own container.
+    |
+    */
+
+    'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', true),
+
+    // Use semver range to link to a major or minor version number.
+    // Leaving empty will use the latest version - not recommended in production.
+    'appbridge_version' => env('SHOPIFY_APPBRIDGE_VERSION', 'latest'),
+
+    // Set a new CDN URL if you want to host the AppBridge JS yourself or unpkg goes down.
+    // DO NOT include a trailing slash.
+    'appbridge_cdn_url' => env('SHOPIFY_APPBRIDGE_CDN_URL', 'https://unpkg.com'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Shopify App Name
     |--------------------------------------------------------------------------
     |
@@ -193,7 +214,7 @@ return [
     |
     */
 
-    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products,read_themes'),
+    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products,read_customers,read_themes'),
 
     /*
     |--------------------------------------------------------------------------
@@ -386,10 +407,22 @@ return [
 
     'webhooks' => [
         [
-            'topic' => 'PRODUCTS_UPDATE',
-            'address' => 'https://completely-causal-jay.ngrok-free.app/webhook/products-update'
+            'topic' => 'APP_UNINSTALLED',
+            'address' => 'https://aphid-aware-stallion.ngrok-free.app/webhook/app-uninstalled'
         ],
-        /*[
+        [
+            'topic' => 'PRODUCTS_UPDATE',
+            'address' => 'https://aphid-aware-stallion.ngrok-free.app/webhook/products-update'
+        ],
+        [
+            'topic' => 'BULK_OPERATIONS_FINISH',
+            'address' => 'https://aphid-aware-stallion.ngrok-free.app/webhook/bulk-operations-finish'
+        ],
+        /*
+            [
+                'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'ORDERS_CREATE'),
+                'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/orders-create')
+            ], [
                 'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'APP_PURCHASES_ONE_TIME_UPDATE'),
                 'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://some-app.com/webhook/purchase'),
             ]
@@ -492,6 +525,18 @@ return [
     */
 
     'config_api_callback' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable Turbolinks or Hotwire Turbo
+    |--------------------------------------------------------------------------
+    |
+    | If you use Turbolinks/Turbo and Livewire, turn on this setting to get
+    | the token assigned automatically.
+    |
+    */
+
+    'turbo_enabled' => (bool) env('SHOPIFY_TURBO_ENABLED', false),
 
     /*
     |--------------------------------------------------------------------------
